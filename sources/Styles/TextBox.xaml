@@ -1,0 +1,72 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Style TargetType="TextBox">
+        <Setter Property="Background" Value="#10FFFFFF"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="BorderBrush" Value="#15FFFFFF"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Padding" Value="12,10"/>
+        <Setter Property="CaretBrush" Value="White"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="Margin" Value="0"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="IsReadOnly" Value="{Binding Tag, RelativeSource={RelativeSource AncestorType=HeaderedContentControl}, FallbackValue=False, TargetNullValue=False}"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TextBox">
+                    <Border x:Name="border" 
+                            Background="{TemplateBinding Background}" 
+                            BorderBrush="{TemplateBinding BorderBrush}" 
+                            BorderThickness="{TemplateBinding BorderThickness}" 
+                            CornerRadius="8" 
+                            SnapsToDevicePixels="True">
+                        
+                        <Grid>
+                            <!-- Плейсхолдер. Свойство Tag теперь используется как текст подсказки -->
+                            <TextBlock x:Name="PlaceholderText" 
+                                       Text="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}" 
+                                       Foreground="#40A0AAB5" 
+                                       FontSize="{TemplateBinding FontSize}" 
+                                       Padding="{TemplateBinding Padding}" 
+                                       IsHitTestVisible="False" 
+                                       Visibility="Collapsed"/>
+
+                            <ScrollViewer x:Name="PART_ContentHost" 
+                                          Focusable="false" 
+                                          HorizontalScrollBarVisibility="Hidden" 
+                                          VerticalScrollBarVisibility="Hidden"/>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        
+                        <Trigger Property="Text" Value="">
+                            <Setter TargetName="PlaceholderText" 
+                                    Property="Visibility" 
+                                    Value="Visible"/>
+                        </Trigger>
+                        
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="BorderBrush" Value="#40FFFFFF"/>
+                        </Trigger>
+                        
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter Property="BorderBrush" Value="#2E4260"/>
+                            <Setter Property="Background" Value="#20000000"/>
+                        </Trigger>
+                        
+                        <Trigger Property="IsReadOnly" Value="True">
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="BorderBrush" Value="Transparent"/>
+                            <Setter Property="Padding" Value="2,10"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>
